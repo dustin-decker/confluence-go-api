@@ -74,7 +74,7 @@ type Version struct {
 
 // Space holds the Space information of a Content Page
 type Space struct {
-	ID     int    `json:"id,omitempty"`
+	// ID     int    `json:"id,omitempty"`
 	Key    string `json:"key,omitempty"`
 	Name   string `json:"name,omitempty"`
 	Type   string `json:"type,omitempty"`
