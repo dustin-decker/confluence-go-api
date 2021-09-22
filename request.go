@@ -39,13 +39,13 @@ func (a *API) Request(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 	Debug(fmt.Sprintf("====== Response Status Code: %d ======", resp.StatusCode))
 
 	res, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	resp.Body.Close()
 
 	Debug("====== Response Body ======")
 	Debug(string(res))
