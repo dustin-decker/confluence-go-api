@@ -8,6 +8,10 @@ import (
 	"net/url"
 )
 
+var (
+	errEmptyHTTPClient = errors.New("empty http client")
+)
+
 // NewAPI implements API constructor
 func NewAPI(location string, username string, token string) (*API, error) {
 	if len(location) == 0 {
@@ -29,7 +33,7 @@ func NewAPI(location string, username string, token string) (*API, error) {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: false},
 	}
 
-	a.client = &http.Client{Transport: tr}
+	a.Client = &http.Client{Transport: tr}
 
 	return a, nil
 }
@@ -43,9 +47,13 @@ func NewAPIWithClient(location string, client *http.Client) (*API, error) {
 		return nil, err
 	}
 
+	if client == nil {
+		return nil, errEmptyHTTPClient
+	}
+
 	a := new(API)
 	a.endPoint = u
-	a.client = client
+	a.Client = client
 
 	return a, nil
 }
@@ -55,7 +63,7 @@ func (a *API) VerifyTLS(set bool) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: !set},
 	}
-	a.client = &http.Client{Transport: tr}
+	a.Client = &http.Client{Transport: tr}
 }
 
 // DebugFlag is the global debugging variable

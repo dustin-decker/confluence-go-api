@@ -10,7 +10,7 @@
 
 is a [Confluence](https://www.atlassian.com/software/confluence) REST API client implementation written in [GOLANG](https://golang.org).
 
-## Supportet Features
+## Supported Features
 
 - get, update, delete content
 - get, update, delete content templates and blueprints
@@ -65,6 +65,15 @@ func main() {
   }
   fmt.Printf("%+v\n", currentUser)
 }
+```
+
+
+### Using a Personal Access Token
+
+To generate a confluence personal access token (PAT) see this article: https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html. Only set the token in the NewAPI function
+
+```
+  api, err := goconfluence.NewAPI("https://<your-domain>.atlassian.net/wiki/rest/api", "", "<personal-access-token>")
 ```
 
 ### Advanced examples
